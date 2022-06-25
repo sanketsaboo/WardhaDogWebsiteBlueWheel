@@ -65,7 +65,13 @@ app.get("/projects", async (req, res) => {
   // res.render("projects", { initiatives: data });
   res.render("projects");
 });
-
+//nft details
+app.get("/nftdetails", async (req, res) => {
+  // const dogs = await Initiatives.get();
+  // const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  // res.render("projects", { initiatives: data });
+  res.render("details");
+});
 app.get("/admin/addDog", async (req, res) => {
   const dogs = await Dogs.get();
   const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
