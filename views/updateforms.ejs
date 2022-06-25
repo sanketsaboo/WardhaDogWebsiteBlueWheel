@@ -12,11 +12,15 @@
     </button>
   </a>
 </div>
-
-<form method="post" action="/forms" style="width: 50%; margin: auto">
+<form
+  method="post"
+  action="/editDog/<%= dog.id %>"
+  style="width: 50%; margin: auto"
+>
   <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
     <input
+      value="<%= dog.name %>"
       type="text"
       class="form-control"
       id="exampleInputEmail1"
@@ -33,7 +37,7 @@
       name="age"
       style="width: 100%"
       pattern="^[0-9]*$"
-      value="0"
+      value="<%= dog.age %>"
     />
     <small style="font-size: x-small">Accepts only numbers</small>
   </div>
@@ -45,6 +49,7 @@
       id="exampleInputPassword1"
       name="nftlink"
       placeholder="Enter NFT Link"
+      value="<%= dog.nftlink %>"
     />
   </div>
   <div class="col-auto my-1">
@@ -54,8 +59,13 @@
       class="custom-select mr-sm-2"
       id="inlineFormCustomSelect"
     >
+      <% if(dog.sex){ %>
       <option value="1" selected>Male</option>
       <option value="0">Female</option>
+      <% }else{ %>
+      <option value="1">Male</option>
+      <option value="0" selected>Female</option>
+      <% } %>
     </select>
   </div>
   <div class="form-group">
@@ -66,36 +76,68 @@
       id="exampleFormControlTextarea1"
       rows="3"
     >
- Enter dog's Story</textarea
+    <%= dog.story %>
+ </textarea
     >
   </div>
 
   <div class="checkbox-list">
     <div class="form-check flex-items">
+      <% if(dog.vaccinated){ %>
+      <input
+        checked
+        name="vaccinated"
+        type="checkbox"
+        class=""
+        id="exampleCheck1"
+      />
+      <% }else{ %>
       <input name="vaccinated" type="checkbox" class="" id="exampleCheck1" />
+      <% } %>
+
       <label class="form-check-label" for="exampleCheck1">Vaccinated</label>
     </div>
 
     <div class="form-check flex-items">
+      <% if(dog.neutered){ %>
+      <input
+        checked
+        name="neutered"
+        type="checkbox"
+        class=""
+        id="exampleCheck1"
+      />
+      <% }else{ %>
       <input name="neutered" type="checkbox" class="" id="exampleCheck1" />
+      <% } %>
       <label class="form-check-label" for="exampleCheck1">Neutered</label>
     </div>
 
     <div class="form-check flex-items">
+      <% if(dog.spayed){ %>
       <input
+        checked
         name="spayed"
         type="checkbox"
-        class="form-check-input"
+        class=""
         id="exampleCheck1"
       />
+      <% }else{ %>
+      <input name="spayed" type="checkbox" class="" id="exampleCheck1" />
+      <% } %>
       <label class="form-check-label" for="exampleCheck1">Spayed</label>
     </div>
-    <% if(length < 3){ %>
+    <% if(length < 3){ %> <% if(dog.home){ %>
+    <div class="form-check flex-items">
+      <input checked name="home" type="checkbox" class="" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">home</label>
+    </div>
+    <% }else{ %>
     <div class="form-check flex-items">
       <input name="home" type="checkbox" class="" id="exampleCheck1" />
       <label class="form-check-label" for="exampleCheck1">home</label>
     </div>
-    <% }else{ %>
+    <% } %> <% }else{ %>
     <div class="form-check flex-items myinp">
       <input disabled name="home" type="checkbox" class="" id="exampleCheck1" />
       <label class="form-check-label" for="exampleCheck1">home</label>

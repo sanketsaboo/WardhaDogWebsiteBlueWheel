@@ -316,71 +316,43 @@
         data-lg-margin="84"
         data-mouse-drag="false"
       >
+      <% for(var i=0;i<homedogs.length;i++){ %>
         <div class="thumbnail">
           <img
             class="img-responsive"
-            src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-            width="480"
-            height="321"
+            width="520"
+            height="391"
+            src="<%= homedogs[i].nftlink %>"
             alt=""
           />
           <div class="caption">
-            <h4 class="text-uppercase">Name: Tommy</h4>
-            <p class="small text-bold">
-              Details: the largest street dog adoption platform, e-comm store of
-              ethically sourced dog products, and a subscription-based career
-              intelligence community with experts in animal welfare
-            </p>
+            <h4 class="text-uppercase">Name:<%= homedogs[i].name %></h4>
+            <p class="small text-bold">Story: <%= homedogs[i].story %></p>
+            <div class="tags-custom">
+              <% if(homedogs[i].vaccinated){ %>
+              <span><small class="flex-items">Vaccinated</small></span>
+              <% }if(homedogs[i].neutered){ %>
+              <span><small class="flex-items">Neutered</small></span>
+              <% }if(homedogs[i].spayed){ %>
+              <span><small class="flex-items">Spayed</small></span>
+              <% } %>
+            </div>
 
-            <!-- <p class="text-graylight small text-bold text-uppercase">Delivery possible</p> -->
-            <a class="caption-link btn btn-default" href="#">Buy</a>
+            <a
+              class="caption-link btn btn-default"
+              href="<%= homedogs[i].nftlink %>"
+              >Buy</a
+            >
           </div>
         </div>
-        <div class="thumbnail">
-          <img
-            class="img-responsive"
-            src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-            width="480"
-            height="321"
-            alt=""
-          />
-          <div class="caption">
-            <h4 class="text-uppercase">Name: Tommy</h4>
-            <p class="small text-bold">
-              Details: the largest street dog adoption platform, e-comm store of
-              ethically sourced dog products, and a subscription-based career
-              intelligence community with experts in animal welfare
-            </p>
-
-            <!-- <p class="text-graylight small text-bold text-uppercase">Delivery possible</p> -->
-            <a class="caption-link btn btn-default" href="#">Buy</a>
-          </div>
-        </div>
-        <div class="thumbnail">
-          <img
-            class="img-responsive"
-            src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-            width="480"
-            height="321"
-            alt=""
-          />
-          <div class="caption">
-            <h4 class="text-uppercase">Name: Tommy</h4>
-            <p class="small text-bold">
-              Details: the largest street dog adoption platform, e-comm store of
-              ethically sourced dog products, and a subscription-based career
-              intelligence community with experts in animal welfare
-            </p>
-
-            <!-- <p class="text-graylight small text-bold text-uppercase">Delivery possible</p> -->
-            <a class="caption-link btn btn-default" href="#">Buy</a>
-          </div>
-        </div>
+      <% } %>
+        
+        
         <!-- <a href="gallery.html"></a> -->
       </div>
       <a
         class="offset-top-20 offset-lg-top-80 btn btn-default"
-        href="gallery.html"
+        href="/gallery"
         >View all NFTS for sale</a
       >
     </div>

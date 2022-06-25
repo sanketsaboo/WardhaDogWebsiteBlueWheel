@@ -62,120 +62,36 @@
             data-isotope-group="gallery"
           >
             <div class="row">
+              <% for(var i = 0;i < dogs.length;i++){ %>
               <div class="col-xs-12 col-sm-6 col-md-4 isotope-item thumbnail">
                 <img
                   class="img-responsive"
                   width="520"
                   height="391"
-                  src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
+                  src="<%= dogs[i].nftlink %>"
                   alt=""
                 />
                 <div class="caption">
-                  <h4 class="text-uppercase">Name: Tommy</h4>
-                  <p class="small text-bold">
-                    Details: the largest street dog adoption platform, e-comm
-                    store of ethically sourced dog products, and a
-                    subscription-based career intelligence community with
-                    experts in animal welfare
-                  </p>
-                  <a class="caption-link btn btn-default" href="#">Buy</a>
+                  <h4 class="text-uppercase">Name:<%= dogs[i].name %></h4>
+                  <p class="small text-bold">Story: <%= dogs[i].story %></p>
+                  <div class="tags-custom">
+                    <% if(dogs[i].vaccinated){ %>
+                    <span><small class="flex-items">Vaccinated</small></span>
+                    <% }if(dogs[i].neutered){ %>
+                    <span><small class="flex-items">Neutered</small></span>
+                    <% }if(dogs[i].spayed){ %>
+                    <span><small class="flex-items">Spayed</small></span>
+                    <% } %>
+                  </div>
+
+                  <a
+                    class="caption-link btn btn-default"
+                    href="<%= dogs[i].nftlink %>"
+                    >Buy</a
+                  >
                 </div>
               </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item thumbnail">
-                <img
-                  class="img-responsive"
-                  width="520"
-                  height="391"
-                  src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-                  alt=""
-                />
-                <div class="caption">
-                  <h4 class="text-uppercase">Name: Tommy</h4>
-                  <p class="small text-bold">
-                    Details: the largest street dog adoption platform, e-comm
-                    store of ethically sourced dog products, and a
-                    subscription-based career intelligence community with
-                    experts in animal welfare
-                  </p>
-                  <a class="caption-link btn btn-default" href="#">Buy</a>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item thumbnail">
-                <img
-                  class="img-responsive"
-                  width="520"
-                  height="391"
-                  src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-                  alt=""
-                />
-                <div class="caption">
-                  <h4 class="text-uppercase">Name: Tommy</h4>
-                  <p class="small text-bold">
-                    Details: the largest street dog adoption platform, e-comm
-                    store of ethically sourced dog products, and a
-                    subscription-based career intelligence community with
-                    experts in animal welfare
-                  </p>
-                  <a class="caption-link btn btn-default" href="#">Buy</a>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item thumbnail">
-                <img
-                  class="img-responsive"
-                  width="520"
-                  height="391"
-                  src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-                  alt=""
-                />
-                <div class="caption">
-                  <h4 class="text-uppercase">Name: Tommy</h4>
-                  <p class="small text-bold">
-                    Details: the largest street dog adoption platform, e-comm
-                    store of ethically sourced dog products, and a
-                    subscription-based career intelligence community with
-                    experts in animal welfare
-                  </p>
-                  <a class="caption-link btn btn-default" href="#">Buy</a>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item thumbnail">
-                <img
-                  class="img-responsive"
-                  width="520"
-                  height="391"
-                  src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-                  alt=""
-                />
-                <div class="caption">
-                  <h4 class="text-uppercase">Name: Tommy</h4>
-                  <p class="small text-bold">
-                    Details: the largest street dog adoption platform, e-comm
-                    store of ethically sourced dog products, and a
-                    subscription-based career intelligence community with
-                    experts in animal welfare
-                  </p>
-                  <a class="caption-link btn btn-default" href="#">Buy</a>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 isotope-item thumbnail">
-                <img
-                  class="img-responsive"
-                  width="520"
-                  height="391"
-                  src="https://img.seadn.io/files/b6f594010c5495fa1322009ee8e3e26f.png?fit=max&w=600"
-                  alt=""
-                />
-                <div class="caption">
-                  <h4 class="text-uppercase">Name: Tommy</h4>
-                  <p class="small text-bold">
-                    Details: the largest street dog adoption platform, e-comm
-                    store of ethically sourced dog products, and a
-                    subscription-based career intelligence community with
-                    experts in animal welfare
-                  </p>
-                  <a class="caption-link btn btn-default" href="#">Buy</a>
-                </div>
-              </div>
+              <% } %>
             </div>
           </div>
         </div>
@@ -185,3 +101,15 @@
 </main>
 
 <%-include("partials/footer.ejs")-%>
+<style>
+  .tags-custom {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-items {
+    margin-right: 10px;
+    font-size: 13px;
+  }
+</style>
