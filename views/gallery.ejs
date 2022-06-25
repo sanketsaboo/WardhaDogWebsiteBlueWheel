@@ -68,12 +68,22 @@
                   class="img-responsive"
                   width="520"
                   height="391"
-                  src="<%= dogs[i].nftlink %>"
+                  src="<%= dogs[i].nftpicture %>"
                   alt=""
                 />
                 <div class="caption">
-                  <h4 class="text-uppercase">Name:<%= dogs[i].name %></h4>
-                  <p class="small text-bold">Story: <%= dogs[i].story %></p>
+                  <h4 class="text-uppercase">
+                    <a
+                      style="color: #313131"
+                      href="/nftDetails/<%= dogs[i].id %>"
+                      >Name:<%= dogs[i].name %></a
+                    >
+                  </h4>
+                  <p class="small text-bold">
+                    Story:<% if(dogs[i].story.length<100){%> <%= dogs[i].story
+                    %> <% }else{ %> <%= dogs[i].story.substring(0,100) %> ....
+                    <% } %>
+                  </p>
                   <div class="tags-custom">
                     <% if(dogs[i].vaccinated){ %>
                     <span><small class="flex-items">Vaccinated</small></span>
@@ -81,6 +91,10 @@
                     <span><small class="flex-items">Neutered</small></span>
                     <% }if(dogs[i].spayed){ %>
                     <span><small class="flex-items">Spayed</small></span>
+                    <% } %> <% if(dogs[i].sex){ %>
+                    <span><small class="flex-items">Male</small></span>
+                    <% }else{ %>
+                    <span><small class="flex-items">Female</small></span>
                     <% } %>
                   </div>
 

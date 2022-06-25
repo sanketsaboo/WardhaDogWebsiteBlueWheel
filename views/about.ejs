@@ -49,20 +49,12 @@
               </h6>
               <div class="list-index-inset">
                 <p class="offset-top-0">
-                  &#x2022;<a href="" style="color: #717171">
-                    Animal Birth Control for 5,000 dogs in Wardha <br
-                  /></a>
-                  &#x2022; Vaccination Drive for the Dogs in Sawangi <br />
-                  &#x2022; Feeding Drive for 3,000 dogs in Sawangi <br />
-                  &#x2022; 24/7 Animal Ambulance Service <br />
-                  &#x2022; Dead Animal Burial Service and portable incinerators
-                  <br />
-                  &#x2022; Canine Viral Disease Treatment Center <br />
-                  &#x2022; Multispecialty Animal Hospital in Vidarbha <br />
-                  &#x2022; Sanctuary in Sewagram for old, permanently injured
-                  and differently-abled dogs <br />
-                  &#x2022; Medicine Bank and Emergency Medical Reserve Funds for
-                  street dogs <br />
+                  <% for(var i=0;i<projects.length;i++){ %>
+                    &#x2022;<a href="<%= projects[i].link %>" style="color: #717171">
+                      <%= projects[i].name %> <br
+                    /></a>
+                  <% } %>
+                  
                 </p>
               </div>
             </li>

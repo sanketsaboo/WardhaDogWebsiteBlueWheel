@@ -54,8 +54,10 @@ app.get("/gallery", async (req, res) => {
 });
 
 //about
-app.get("/about", (req, res) => {
-  res.render("about");
+app.get("/about", async (req, res) => {
+  const data = await Projects.get();
+  const projects = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  res.render("about", { projects });
 });
 
 //projects
@@ -66,11 +68,15 @@ app.get("/projects", async (req, res) => {
   res.render("projects");
 });
 
-app.get("/nftdetails", async (req, res) => {
-  // const dogs = await Initiatives.get();
-  // const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  // res.render("projects", { initiatives: data });
-  res.render("details");
+app.get("/nftdetails/:id", async (req, res) => {
+  const dogs = await Dogs.get();
+  const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const dog = data.filter((dogg) => {
+    return dogg.id === req.params.id;
+  });
+  console.log(req.params.id);
+  console.log(dog);
+  res.render("details", { dog: dog[0] });
 });
 
 app.get("/admin/addDog", adminAuth, async (req, res) => {
@@ -125,6 +131,7 @@ app.post("/admin/editDog/:id", adminAuth, async (req, res) => {
 
   saveData["story"] = data.story;
   saveData["nftlink"] = data.nftlink;
+  saveData["nftpicture"] = data.nftpicture;
   saveData["name"] = data.name;
   saveData["age"] = parseInt(data.age);
   // 1 for male
@@ -169,6 +176,7 @@ app.post("/admin/forms", adminAuth, async (req, res) => {
   saveData["nftlink"] = data.nftlink;
   saveData["name"] = data.name;
   saveData["age"] = parseInt(data.age);
+  saveData["nftpicture"] = data.nftpicture;
   // 1 for male
   // 0 for female
   saveData["sex"] = parseInt(data.sex);
