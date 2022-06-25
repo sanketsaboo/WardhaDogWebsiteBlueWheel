@@ -322,12 +322,22 @@
             class="img-responsive"
             width="520"
             height="391"
-            src="<%= homedogs[i].nftlink %>"
+            src="<%= homedogs[i].nftpicture %>"
             alt=""
           />
           <div class="caption">
-            <h4 class="text-uppercase">Name:<%= homedogs[i].name %></h4>
-            <p class="small text-bold">Story: <%= homedogs[i].story %></p>
+            <h4 class="text-uppercase">
+              <a
+                style="color: #313131"
+                href="/nftDetails/<%= homedogs[i].id %>"
+                >Name:<%= homedogs[i].name %></a
+              >
+            </h4>
+            <p class="small text-bold">
+              Story:<% if(homedogs[i].story.length<100){%> <%= homedogs[i].story
+              %> <% }else{ %> <%= homedogs[i].story.substring(0,100) %> ....
+              <% } %>
+            </p>
             <div class="tags-custom">
               <% if(homedogs[i].vaccinated){ %>
               <span><small class="flex-items">Vaccinated</small></span>
