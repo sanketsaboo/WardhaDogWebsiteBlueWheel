@@ -1,0 +1,44 @@
+<%-include("partials/adminHeader.ejs")-%>
+<div style="margin-left: 45%">
+  <a href="/admin/addProjects">
+    <button style="margin-bottom: 10px" type="button" class="btn btn-primary">
+      Add a Project
+    </button>
+  </a>
+</div>
+
+<% for(var i=0;i<projects.length;i++){ %>
+  <div class="outer-div">
+    <h5 class="card-header liItem">
+      <%= projects[i].name %>
+      <div>
+        <a href="/admin/editProjects/<%= projects[i].id %>"
+          ><button type="button" class="btn btn-sm btn-primary">Edit</button></a
+        >
+        <a href="/admin/deleteProjects/<%= projects[i].id %>"
+          ><button type="button" class="btn btn-sm btn-primary">
+            Delete
+          </button></a
+        >
+      </div>
+
+      <!-- Wrap with <div>...buttons...</div> if you have multiple buttons -->
+    </h5>
+  </div>
+  <% } %> <%-include("partials/footer.ejs")-%>
+  <style>
+    .liItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .outer-div {
+      width: 70%;
+
+      margin: auto;
+      border: solid;
+      padding: 10px;
+      border-width: 1px;
+    }
+  </style>
+</dogs.length;i++){>

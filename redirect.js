@@ -5,7 +5,7 @@ module.exports = function (req, res, next) {
   const token = req.cookies.token;
   console.log(process.env.jwtSecret);
   if (!token) {
-    return res.redirect("/adminLogin");
+    next();
   }
 
   try {
@@ -15,10 +15,10 @@ module.exports = function (req, res, next) {
     req.user = decoded.user;
     console.log("this is req.user =========");
     console.log(req.user);
-    if (req.user.admin) {
+    if (!req.user.admin) {
       next();
     } else {
-      return res.redirect("/adminLogin");
+      return res.redirect("/admin/alldogs");
     }
   } catch {
     res.status(401).json({ msg: "Token is not valid" });

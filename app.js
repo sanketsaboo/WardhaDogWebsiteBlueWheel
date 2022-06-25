@@ -16,6 +16,7 @@ const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const serviceAccount = require("./key.json");
+const redirect = require("./redirect");
 
 initializeApp({
   credential: cert(serviceAccount),
@@ -25,6 +26,7 @@ const db = getFirestore();
 const Dogs = db.collection("dogs");
 const Initiatives = db.collection("initiatives");
 const Admins = db.collection("admins");
+const Projects = db.collection("projects");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -231,7 +233,53 @@ app.get("/admin/deleteInitiatives/:id", adminAuth, (req, res) => {
   res.redirect("/admin/allinitiatives");
 });
 
-app.get("/adminLogin", async (req, res) => {
+app.get("/admin/addProjects", async (req, res) => {
+  res.render("addProjects");
+});
+
+app.post("/admin/addProjects", async (req, res) => {
+  const saveData = {
+    name: req.body.name,
+    link: req.body.link,
+  };
+
+  await Projects.add(saveData);
+  res.redirect("/admin/allprojects");
+});
+
+app.get("/admin/editProjects/:id", async (req, res) => {
+  const data = await Projects.get();
+  const projects = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const project = projects.filter((project) => {
+    return project.id === req.params.id;
+  });
+  res.render("editProjects", { project: project[0] });
+});
+
+app.post("/admin/editProjects/:id", async (req, res) => {
+  const id = req.params.id;
+  const saveData = {
+    name: req.body.name,
+    link: req.body.link,
+  };
+
+  await Projects.doc(id).update(saveData);
+  res.redirect("/admin/allprojects");
+});
+
+app.get("/admin/deleteProjects/:id", async (req, res) => {
+  const id = req.params.id;
+  await Projects.doc(id).delete();
+  res.redirect("/admin/allprojects");
+});
+
+app.get("/admin/allprojects", async (req, res) => {
+  const data = await Projects.get();
+  const projects = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  res.render("allprojects", { projects });
+});
+
+app.get("/adminLogin", redirect, async (req, res) => {
   res.render("login");
 });
 
