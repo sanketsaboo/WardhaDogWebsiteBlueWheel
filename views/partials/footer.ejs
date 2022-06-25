@@ -1,0 +1,31 @@
+ <!-- Page Footer-->
+ <footer class="page-footer">
+    <div class="container"><span>&#169;</span> <span id="copyright-year"></span>
+      <hr class="divider divider-default divider-vertical"><a href="privacy.html">Privacy policy</a>
+    </div>
+  </footer>
+</div>
+
+<!-- Java script-->
+<script>
+  console.log(window.location.pathname)
+  var pathname = window.location.pathname
+  var liElements = document.getElementById("navbarul").getElementsByTagName('li')
+  for(var i=0;i<liElements.length;i++){
+    if(liElements[i].children[0].attributes[0].nodeValue === pathname){
+      console.log("This is the pathname")
+      console.log(pathname)
+      liElements[i].classList.add("active")
+    }else{
+      liElements[i].classList.remove("active")
+    }
+  }
+  //This gives me what href is pointing towards
+  // console.log(document.getElementById("navbarul").getElementsByTagName('li')[1].childNodes[0].attributes[0].nodeValue)
+  
+</script>
+<script src="/js/core.min.js"></script>
+<script src="/js/script.js"></script>
+<script src="js/try.js"></script>
+</body>
+</html>
