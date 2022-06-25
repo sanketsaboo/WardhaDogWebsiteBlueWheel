@@ -60,9 +60,10 @@ app.get("/about", (req, res) => {
 
 //projects
 app.get("/projects", async (req, res) => {
-  const dogs = await Initiatives.get();
-  const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  res.render("projects", { initiatives: data });
+  // const dogs = await Initiatives.get();
+  // const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  // res.render("projects", { initiatives: data });
+  res.render("projects");
 });
 
 app.get("/admin/addDog", async (req, res) => {
