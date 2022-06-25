@@ -26,6 +26,7 @@ initializeApp({
 
 const db = getFirestore();
 const Dogs = db.collection("dogs");
+const Initiatives = db.collection("initiatives");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -58,11 +59,13 @@ app.get("/about", (req, res) => {
 });
 
 //projects
-app.get("/projects", (req, res) => {
-  res.render("projects");
+app.get("/projects", async (req, res) => {
+  const dogs = await Initiatives.get();
+  const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  res.render("projects", { initiatives: data });
 });
 
-app.get("/addDog", async (req, res) => {
+app.get("/admin/addDog", async (req, res) => {
   const dogs = await Dogs.get();
   const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   const home = data.filter((dog) => {
@@ -71,7 +74,7 @@ app.get("/addDog", async (req, res) => {
   res.render("forms", { length: home.length });
 });
 
-app.get("/editDog/:id", async (req, res) => {
+app.get("/admin/editDog/:id", async (req, res) => {
   console.log(req.params.id);
   const dogs = await Dogs.get();
   const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -86,7 +89,7 @@ app.get("/editDog/:id", async (req, res) => {
   res.render("updateforms", { dog: dog[0], length: home.length });
 });
 
-app.post("/editDog/:id", async (req, res) => {
+app.post("/admin/editDog/:id", async (req, res) => {
   const data = req.body;
   console.log(data);
   id = req.params.id;
@@ -120,16 +123,16 @@ app.post("/editDog/:id", async (req, res) => {
   // 0 for female
   saveData["sex"] = parseInt(data.sex);
   await Dogs.doc(id).update(saveData);
-  res.redirect("/alldogs");
+  res.redirect("/admin/alldogs");
 });
 
-app.get("/delete/:id", async (req, res) => {
+app.get("/admin/delete/:id", async (req, res) => {
   let id = req.params.id;
   await Dogs.doc(id).delete();
-  res.send("Deleted");
+  res.redirect("/admin/alldogs");
 });
 
-app.post("/forms", async (req, res) => {
+app.post("/admin/forms", async (req, res) => {
   const data = req.body;
   console.log(data);
   const saveData = {};
@@ -162,10 +165,10 @@ app.post("/forms", async (req, res) => {
   // 0 for female
   saveData["sex"] = parseInt(data.sex);
   await Dogs.add(saveData);
-  res.send("Updated");
+  res.redirect("/admin/alldogs");
 });
 
-app.get("/alldogs", async (req, res) => {
+app.get("/admin/alldogs", async (req, res) => {
   const dogs = await Dogs.get();
   const data = dogs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   res.render("alldogs", { dogs: data });
@@ -179,6 +182,48 @@ app.get("/data", async (req, res) => {
   res.send("Data updated");
 });
 
+app.get("/admin/addInitiatives", (req, res) => {
+  res.render("addInitiatives");
+});
+
+app.post("/admin/addInitiatives", async (req, res) => {
+  const savedData = {
+    heading: req.body.heading,
+    content: req.body.content,
+  };
+  await Initiatives.add(savedData);
+  res.redirect("/admin/allinitiatives");
+});
+
+app.get("/admin/editInitiatives/:id", async (req, res) => {
+  const data = await Initiatives.get();
+  const initiatives = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const initiative = initiatives.filter((data) => {
+    return data.id == req.params.id;
+  });
+  res.render("editInitiative", { initiative: initiative[0] });
+});
+
+app.get("/admin/allinitiatives", async (req, res) => {
+  const data = await Initiatives.get();
+  const initiatives = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  res.render("allInitiatives", { initiatives });
+});
+
+app.post("/admin/editInitiative/:id", async (req, res) => {
+  var id = req.params.id;
+  data = {
+    heading: req.body.heading,
+    content: req.body.content,
+  };
+  Initiatives.doc(id).update(data);
+  res.redirect("/admin/allinitiatives");
+});
+app.get("/admin/deleteInitiatives/:id", (req, res) => {
+  const id = req.params.id;
+  Initiatives.doc(id).delete();
+  res.redirect("/admin/allinitiatives");
+});
 //listen route
 const PORT = 3000;
 app.listen(PORT, () => {

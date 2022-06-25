@@ -1,6 +1,6 @@
-<%-include("partials/header.ejs")-%>
+<%-include("partials/adminHeader.ejs")-%>
 <div style="position: relative; left: 10px">
-  <a href="/alldogs">
+  <a href="/admin/alldogs">
     <button
       style="position: absolute; left: 0"
       style="left: 100px"
@@ -14,7 +14,7 @@
 </div>
 <form
   method="post"
-  action="/editDog/<%= dog.id %>"
+  action="/admin/editDog/<%= dog.id %>"
   style="width: 50%; margin: auto"
 >
   <div class="form-group">

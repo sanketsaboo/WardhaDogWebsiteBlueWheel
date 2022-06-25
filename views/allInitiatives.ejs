@@ -1,21 +1,21 @@
 <%-include("partials/adminHeader.ejs")-%>
 <div style="margin-left: 45%">
-  <a href="/admin/addDog">
+  <a href="/admin/addInitiatives">
     <button style="margin-bottom: 10px" type="button" class="btn btn-primary">
-      Add a dog
+      Add a Initiative
     </button>
   </a>
 </div>
 
-<% for(var i=0;i<dogs.length;i++){ %>
+<% for(var i=0;i<initiatives.length;i++){ %>
   <div class="outer-div">
     <h5 class="card-header liItem">
-      <%= dogs[i].name %>
+      <%= initiatives[i].heading %>
       <div>
-        <a href="/admin/editDog/<%= dogs[i].id %>"
+        <a href="/admin/editInitiatives/<%= initiatives[i].id %>"
           ><button type="button" class="btn btn-sm btn-primary">Edit</button></a
         >
-        <a href="/admin/delete/<%= dogs[i].id %>"
+        <a href="/admin/deleteInitiatives/<%= initiatives[i].id %>"
           ><button type="button" class="btn btn-sm btn-primary">
             Delete
           </button></a
